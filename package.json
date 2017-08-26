@@ -1,0 +1,34 @@
+{
+  "name": "web 3d",
+  "version": "0.0.1",
+  "description": "Test app",
+  "engines": {
+    "node": "x.x.x"
+  },
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "grunt",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "ejs": "x.x.x",
+    "express": "x.x.x",
+    "grunt": "x.x.x",
+    "grunt-closure-compiler": "x.x.x",
+    "grunt-contrib-concat": "x.x.x",
+    "grunt-contrib-copy": "x.x.x",
+    "grunt-contrib-jshint": "x.x.x",
+    "grunt-contrib-uglify": "x.x.x",
+    "jshint-stylish": "x.x.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heroku/node-js-getting-started"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "MIT"
+}
