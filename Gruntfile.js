@@ -89,7 +89,7 @@ module.exports = function (grunt) {
                     addPropertyWithEvent : true,
                     THREE : true,
                     TWEEN : true,
-                    Stats : true
+                    Stats : true,
                 },
                 reporter: require('jshint-stylish')
             },

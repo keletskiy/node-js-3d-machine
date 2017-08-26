@@ -1494,6 +1494,9 @@ function main(){
             .easing( TWEEN.Easing.Circular.Out).start();
         }
     }
+
+    var last_tooltip = null;
+
     function onDocumentMouseMove( event ) {
 
         var raycaster = new THREE.Raycaster();
@@ -1533,6 +1536,29 @@ function main(){
                     ).start();
 
                 obj.bInTween = true;
+            }
+
+            if (obj.bShowTooltip && !last_tooltip){
+
+                last_tooltip = document.createElement("DIV");
+
+                 var pos = toScreenPosition(obj.position, camera, renderer.domElement);
+
+                last_tooltip.setAttribute("data-tooltip", "Click on the red circle and camera will be changed"); 
+                last_tooltip.style.position = "absolute";
+                last_tooltip.style.left = pos.x + "px";
+                last_tooltip.style.top = pos.y + "px";
+                last_tooltip.style.zIndex = 100;
+                last_tooltip.classList=["hover"];
+                last_tooltip.obj = obj;
+
+                document.body.appendChild(last_tooltip);
+            }
+        }
+        else {
+            if (last_tooltip){
+                document.body.removeChild(last_tooltip);
+                last_tooltip = null;
             }
         }
     }
@@ -1631,6 +1657,13 @@ function main(){
 
                 // reset LOD - will be set in onAfterRender
                 object.lod_desired = available_lods[0]; 
+            }
+
+            if (last_tooltip && last_tooltip.obj) {
+
+                var pos = toScreenPosition(last_tooltip.obj.position, camera, renderer.domElement);
+                last_tooltip.style.left = pos.x + "px";
+                last_tooltip.style.top = pos.y + "px";
             }
 
             renderer.render( scene, camera );
