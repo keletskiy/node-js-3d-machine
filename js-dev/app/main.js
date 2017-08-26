@@ -1312,41 +1312,64 @@ function main(){
     }
 
     // add selection geometry
+    function addSelectionGeom(){
+        var data = {
+            radius : 0.2,
+            widthSegments : 32,
+            heightSegments : 32,
+            phiStart : 0,
+            phiLength : 2 * Math.PI,
+            thetaStart : 0,
+            thetaLength : Math.PI
+        };
 
-    var data = {
-        radius : 0.2,
-        widthSegments : 32,
-        heightSegments : 32,
-        phiStart : 0,
-        phiLength : 2 * Math.PI,
-        thetaStart : 0,
-        thetaLength : Math.PI
-    };
+        var geometry = new THREE.SphereGeometry( data.radius, 
+            data.widthSegments, 
+            data.heightSegments, 
+            data.phiStart, 
+            data.phiLength, 
+            data.thetaStart,
+            data.thetaLength  );
 
-    var geometry = new THREE.SphereGeometry( data.radius, 
-        data.widthSegments, 
-        data.heightSegments, 
-        data.phiStart, 
-        data.phiLength, 
-        data.thetaStart,
-        data.thetaLength  );
+        var object, i;
 
-    for ( var i = 0; i < 20; i ++ ) {
+        for ( i = 0; i < 15; i ++ ) {
 
-        var object = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { 
-            color: Math.random() * 0xffffff,
-            transparent: true,
-            opacity: 0.5 
-        } ) );
+            object = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { 
+                color: 0xff0000,
+                transparent: true,
+                opacity: 0.5 
+            } ) );
 
-        object.position.x = Math.random() * 20 - 10;
-        object.position.y = Math.random() * 20 - 10;
-        object.position.z = Math.random() * 20 - 10;
+            object.position.x = Math.random() * 20 - 10;
+            object.position.y = Math.random() * 20 - 10;
+            object.position.z = Math.random() * 20 - 10;
 
-        object.bMoveCamera = true;
+            object.bMoveCamera = true;
+            object.bIteractive = true;
 
-        scene.add(object);
+            scene.add(object);
+        }
+
+        for ( i = 0; i < 15; i ++ ) {
+
+            object = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { 
+                color: 0xff00,
+                transparent: true,
+                opacity: 0.5 
+            } ) );
+
+            object.position.x = Math.random() * 20 - 10;
+            object.position.y = Math.random() * 20 - 10;
+            object.position.z = Math.random() * 20 - 10;
+
+            object.bShowTooltip= true;
+            object.bIteractive = true;
+
+            scene.add(object);
+        }
     }
+    addSelectionGeom();
 
     function preventDefault_handler(event) {
         if (event && event.preventDefault)
@@ -1483,7 +1506,7 @@ function main(){
 
         var intersects = raycaster.intersectObjects( scene.children );
 
-        if ( intersects.length > 0 && intersects[0].object.bMoveCamera) {
+        if ( intersects.length > 0 && intersects[0].object.bIteractive) {
 
             var obj = intersects[0].object;
 
